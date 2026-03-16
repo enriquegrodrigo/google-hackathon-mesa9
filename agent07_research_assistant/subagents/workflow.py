@@ -23,6 +23,7 @@ class ResearchAppender(BaseAgent):
         if latest_research:
             updated_content = [*existing_content, latest_research]
             yield Event(
+                invocation_id=ctx.invocation_id,
                 author=self.name,
                 actions=EventActions(
                     stateDelta={
@@ -34,6 +35,7 @@ class ResearchAppender(BaseAgent):
 
         # Always ensure `content` exists in session state for downstream prompts.
         yield Event(
+            invocation_id=ctx.invocation_id,
             author=self.name,
             actions=EventActions(
                 stateDelta={
@@ -58,4 +60,8 @@ class RevisionController(BaseAgent):
             stateDelta={"revision_number": next_revision_number},
             escalate=should_exit_loop,
         )
-        yield Event(author=self.name, actions=actions)
+        yield Event(
+            invocation_id=ctx.invocation_id,
+            author=self.name,
+            actions=actions,
+        )
