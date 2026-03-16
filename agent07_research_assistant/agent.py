@@ -12,7 +12,7 @@ from .subagents.writer import writer
 
 revision_loop = LoopAgent(
     name="revision_loop",
-    description="Iteratively improve essay draft using critique and follow-up research.",
+    description="Iteratively improve draft quality with critique and follow-up research.",
     max_iterations=5,
     sub_agents=[
         writer,
@@ -25,7 +25,7 @@ revision_loop = LoopAgent(
 
 root_agent = SequentialAgent(
     name="research_assistant",
-    description="Plans, researches, writes, critiques, and revises an essay.",
+    description="Plans, researches, writes, critiques, and revises evidence-based responses to solve Telefonica-relevant problems.",
     sub_agents=[
         planner,
         researcher,
@@ -36,3 +36,7 @@ root_agent = SequentialAgent(
 
 if __name__ == "__main__":
     print("Agent definition loaded.")
+
+from google.adk.apps import App
+
+app = App(root_agent=root_agent, name="agent07_research_assistant")

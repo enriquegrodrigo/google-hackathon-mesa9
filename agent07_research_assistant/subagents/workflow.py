@@ -1,3 +1,4 @@
+import re
 from typing import AsyncGenerator
 
 from google.adk.agents import BaseAgent
@@ -52,12 +53,23 @@ class RevisionController(BaseAgent):
         state = ctx.session.state
         revision_number = int(state.get("revision_number", 0))
         max_revisions = int(state.get("max_revisions", 2))
+        critique_text = str(state.get("critique", ""))
+
+        ready_match = re.search(
+            r"READY_TO_PUBLISH\s*:\s*(YES|NO)",
+            critique_text,
+            flags=re.IGNORECASE,
+        )
+        is_ready = bool(ready_match and ready_match.group(1).upper() == "YES")
 
         next_revision_number = revision_number + 1
-        should_exit_loop = next_revision_number >= max_revisions
+        should_exit_loop = is_ready or next_revision_number >= max_revisions
 
         actions = EventActions(
-            stateDelta={"revision_number": next_revision_number},
+            stateDelta={
+                "revision_number": next_revision_number,
+                "ready_to_publish": is_ready,
+            },
             escalate=should_exit_loop,
         )
         yield Event(
