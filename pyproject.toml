@@ -1,0 +1,23 @@
+[project]
+name = "adk-hackathon-bundle"
+version = "0.1.0"
+description = "Blueprint agentic implementations for Agentic FSA Hackathons"
+readme = "README.md"
+requires-python = ">=3.13"
+authors = [
+    { name = "Yury Kashnitsky", email = "kashnitsky@google.com" },
+    { name = "Lorenzo Spataro", email = "lspataro@google.com" },
+    { name = "Giulio Salierno", email = "giuliosalierno@google.com" },
+    { name = "Arnaud Legendre", email = "legendre@google.com" },
+    { name = "Pier Ippolito", email = "pierippolito@google.com" },
+    { name = "Laura Brito", email = "laubrito@google.com" },
+    { name = "Yehia Elshater", email = "elshater@google.com" },
+]
+dependencies = [
+    "google-adk[a2a]==1.22.1",
+    "google-cloud-aiplatform[evaluation]>=1.133.0",
+    "googlemaps>=4.10.0",
+    "jinja2>=3.1.6",
+    "pre-commit>=4.5.1",
+    "python-dotenv>=1.1.1",
+]
