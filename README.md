@@ -90,7 +90,7 @@ The rest of the document explains how to deploy an agent (taking google search a
  - authenticate to your Google Cloud project:
 
     ```bash
-    PROJECT_ID=YOUR_GCP_PROJECT_ID
+    PROJECT_ID=hackathon-3-486911
 
     gcloud config set project $PROJECT_ID
     gcloud auth application-default login
