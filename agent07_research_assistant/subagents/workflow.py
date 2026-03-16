@@ -32,7 +32,15 @@ class ResearchAppender(BaseAgent):
             )
             return
 
-        yield Event(author=self.name)
+        # Always ensure `content` exists in session state for downstream prompts.
+        yield Event(
+            author=self.name,
+            actions=EventActions(
+                stateDelta={
+                    "content": existing_content,
+                }
+            ),
+        )
 
 
 class RevisionController(BaseAgent):
